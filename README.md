@@ -45,6 +45,8 @@ EC2 Instance
 Google Drive
 ```
 
+![](./img/Architecture%20Dig.png)
+
 ---
 
 # Features
@@ -82,6 +84,8 @@ Google Drive
 | ---- | ---- | ------ |
 | SSH  | 22   | My IP  |
 
+![](./img/Screenshot%202026-05-31%20090339.png)
+
 ---
 
 # Phase 2: Server Preparation
@@ -91,6 +95,7 @@ Google Drive
 ```bash
 ssh -i key.pem ubuntu@PUBLIC_IP
 ```
+![](./img/Screenshot%202026-05-31%20090711.png)
 
 ## Update Server
 
@@ -116,6 +121,7 @@ cron \
 logrotate \
 -y
 ```
+![](./img/Screenshot%202026-05-31%20090853.png)
 
 ## Verify Installation
 
@@ -124,7 +130,7 @@ zip -v
 curl --version
 git --version
 ```
-
+![](./img/Screenshot%202026-05-31%20091107.png)
 ---
 
 # Phase 3: Project Structure
@@ -163,6 +169,8 @@ backup-project
 └── test-project
 ```
 
+![](./img/Screenshot%202026-05-31%20091335.png)
+
 ---
 
 # Phase 4: Create Sample Project
@@ -191,6 +199,8 @@ Verify:
 tree
 ```
 
+![](./img/Screenshot%202026-05-31%20091659.png)
+
 ---
 
 # Phase 5: Google Drive Integration
@@ -200,13 +210,13 @@ tree
 ```bash
 curl https://rclone.org/install.sh | sudo bash
 ```
-
+![](./img/Screenshot%202026-05-31%20091859.png)
 Verify installation:
 
 ```bash
 rclone version
 ```
-
+![](./img/Screenshot%202026-05-31%20091921.png)
 ---
 
 ## Configure Google Drive
@@ -216,6 +226,8 @@ Start configuration:
 ```bash
 rclone config
 ```
+
+![](./img/Screenshot%202026-05-31%20092530.png)
 
 ### Create Remote
 
@@ -324,12 +336,14 @@ Expected:
 ```text
 gdrive:
 ```
-
+![](./img/Screenshot%202026-05-31%20101502.png)
+![](./img/Screenshot%202026-05-31%20101645.png)
 ## Verify Google Drive Access
 
 ```bash
 rclone lsd gdrive:
 ```
+![](./img/Screenshot%202026-05-31%20102007.png)
 
 ---
 
@@ -362,7 +376,7 @@ Verify:
 ```bash
 rclone ls gdrive:ProjectBackups
 ```
-
+![](./img/Screenshot%202026-05-31%20102251.png)
 ---
 
 ## Final Validation
@@ -416,6 +430,7 @@ ENABLE_NOTIFY=true
 
 WEBHOOK_URL=https://webhook.site/YOUR_UNIQUE_ID
 ```
+![](./img/Screenshot%202026-05-31%20113923.png)
 
 ## Verify Variables
 
@@ -429,6 +444,7 @@ echo $LOG_FILE
 echo $GDRIVE_REMOTE
 echo $GDRIVE_FOLDER
 ```
+![](./img/Screenshot%202026-05-31%20115000.png)
 
 ---
 
@@ -461,7 +477,8 @@ Verify:
 ```bash
 ls -l ~/backup-project/scripts/backup.sh
 ```
-
+![](./img/Screenshot%202026-05-31%20115234.png)
+![](./img/Screenshot%202026-05-31%20115255.png)
 ---
 
 # Phase 8: Timestamp Generation
@@ -483,6 +500,8 @@ Example:
 ```text
 20260531_121530
 ```
+![](./img/Screenshot%202026-05-31%20115336.png)
+![](./img/Screenshot%202026-05-31%20115357.png)
 
 ---
 
@@ -499,6 +518,8 @@ Generated path example:
 ```text
 /home/ubuntu/backup-project/backups/BackupAutomation/2026/05/31
 ```
+![](./img/Screenshot%202026-05-31%20115438.png)
+![](./img/Screenshot%202026-05-31%20115509.png)
 
 ---
 
@@ -521,6 +542,9 @@ Verify:
 ```bash
 find ~/backup-project/backups -name "*.zip"
 ```
+![](./img/Screenshot%202026-05-31%20115709.png)
+![](./img/Screenshot%202026-05-31%20115723.png)
+![](./img/Screenshot%202026-05-31%20120301.png)
 
 ---
 
@@ -533,6 +557,7 @@ rclone copy \
 "$BACKUP_FILE" \
 "$GDRIVE_REMOTE:$GDRIVE_FOLDER"
 ```
+![](./img/Screenshot%202026-05-31%20120447.png)
 
 Validate upload:
 
@@ -545,6 +570,8 @@ Expected:
 ```text
 BackupAutomation_20260531_121530.zip
 ```
+![](./img/Screenshot%202026-05-31%20120500.png)
+![](/img/Screenshot%202026-05-31%20171238.png)
 
 ---
 
@@ -569,6 +596,7 @@ View logs:
 ```bash
 cat ~/backup-project/logs/backup.log
 ```
+![](./img/Screenshot%202026-05-31%20120748.png)
 
 ---
 
@@ -585,6 +613,7 @@ Update:
 ```bash
 WEBHOOK_URL=https://webhook.site/YOUR_UNIQUE_ID
 ```
+![](./img/Screenshot%202026-05-31%20121016.png)
 
 After successful backup, the script sends:
 
@@ -597,6 +626,8 @@ After successful backup, the script sends:
 ```
 
 Verify request on Webhook.site dashboard.
+
+![](/img/Screenshot%202026-05-31%20121522.png)
 
 ---
 
@@ -663,6 +694,7 @@ Open cron:
 ```bash
 crontab -e
 ```
+![](/img/Screenshot%202026-05-31%20123440.png)
 
 Add:
 
@@ -691,6 +723,7 @@ Temporary schedule:
 ```bash
 */2 * * * *
 ```
+![](/img/Screenshot%202026-05-31%20123540.png)
 
 Runs every 2 minutes.
 
@@ -699,6 +732,8 @@ Check output:
 ```bash
 cat ~/backup-project/logs/cron.log
 ```
+![](/img/Screenshot%202026-05-31%20123932.png)
+![](/img/Screenshot%202026-05-31%20124006.png)
 
 After verification, revert to:
 
@@ -754,6 +789,8 @@ This prevents unlimited log growth.
 ```bash
 ~/backup-project/scripts/backup.sh
 ```
+![](/img/Screenshot%202026-05-31%20124549.png)
+![](/img/Screenshot%202026-05-31%20124843.png)
 
 ## Verify Local Backups
 
@@ -795,7 +832,8 @@ Webhook Sent
 Starting Retention Cleanup
 Backup Completed
 ```
-
+![](/img/Screenshot%202026-05-31%20124918.png)
+![](/img/Screenshot%202026-05-31%20130803.png)
 ## Verify Cron
 
 ```bash
